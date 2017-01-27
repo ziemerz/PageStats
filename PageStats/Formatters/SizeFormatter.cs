@@ -10,7 +10,7 @@ namespace PageStats.Formatters
     {
         public static double FormatToMB(double value)
         {
-            return Math.Round((value / (1024 * 1024)), 2)
+            return Math.Round((value / (1024 * 1024)), 2);
         }
 
         public static double FormatToKB(double value)

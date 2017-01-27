@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PageStats.Connectors
 {
-    interface Connector
+    interface IConnector
     {
         Site GetSite(String url);
 
