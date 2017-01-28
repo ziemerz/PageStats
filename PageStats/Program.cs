@@ -28,17 +28,12 @@ namespace PageStats
 
             foreach (HtmlNode node in site.Resources)
             {
-
-                String getUrl = URITrimmer.TrimUrl(node.Attributes["href"].Value);
-                WebRequest req = WebRequest.Create(getUrl);
-
-                req.Method = "HEAD";
-                using (WebResponse resp = req.GetResponse())
+                using (WebResponse resp = resourceReader.GetResourceResponse(node))
                 {
                     double size = (double)resp.ContentLength;
                     if (size == -1)
                     {
-                        size = resourceReader.GetResourceSize(getUrl);
+                        size = resourceReader.GetResourceSize(node);
                     }
                     string sizeWithEnding = "";
                     if (size > 1024)
@@ -53,7 +48,7 @@ namespace PageStats
                     {
                         sizeWithEnding = size + " bytes";
                     }
-                    Console.WriteLine("Size of: " + node.Attributes["href"].Value + " is: " + sizeWithEnding);
+                    Console.WriteLine("Size: " + sizeWithEnding);
                 }
 
             }

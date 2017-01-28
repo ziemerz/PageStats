@@ -19,7 +19,7 @@ namespace PageStats.Mergers
 
         public void MapToSite(ref Site site, HtmlDocument document)
         {
-            site.Resources.AddRange(ResourceReader.getAllResources(document));
+            site.Resources.AddRange(ResourceReader.GetAllResources(document));
         }
     }
 }

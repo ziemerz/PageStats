@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using PageStats.Formatters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,17 +15,18 @@ namespace PageStats.Readers
         /**
          * Reads all resources with no header with Content-Length. This includes pure HTML documents
          **/
-        public  String ReadResource(string url)
+        public  String ReadResource(HtmlNode node)
         {
+            String getUrl = UrlFormatter(node);
             WebClient client = new WebClient();
-            Stream stream = client.OpenRead(url);
+            Stream stream = client.OpenRead(getUrl);
             StreamReader reader = new StreamReader(stream);
             return reader.ReadToEnd();
         }
 
-        public double GetResourceSize(string url)
+        public double GetResourceSize(HtmlNode node)
         {
-            return ASCIIEncoding.Unicode.GetByteCount(ReadResource(url));
+            return ASCIIEncoding.Unicode.GetByteCount(ReadResource(node));
         }
 
         public List<HtmlNode> ReadCSS(HtmlDocument document)
@@ -45,6 +47,29 @@ namespace PageStats.Readers
         public List<HtmlNode> ReadImages(HtmlDocument document)
         {
             return document.DocumentNode.Descendants("img").ToList();
+        }
+
+        /**
+         * Checks what kind of node has been parsed, makes a request to the resource and returns the response
+         **/
+        public WebResponse GetResourceResponse(HtmlNode node)
+        {
+            WebRequest request = WebRequest.Create(UrlFormatter(node));
+            request.Method = "HEAD";
+            return request.GetResponse();
+        }
+
+        private String UrlFormatter(HtmlNode node)
+        {
+            if (node.ChildAttributes("href").Any())
+            {
+                return URITrimmer.TrimUrl(node.Attributes["href"].Value);
+            }
+            else if (node.ChildAttributes("src").Any())
+            {
+                return URITrimmer.TrimUrl(node.Attributes["src"].Value);
+            }
+            return "";
         }
     }
 }

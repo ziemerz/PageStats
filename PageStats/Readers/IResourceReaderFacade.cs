@@ -9,11 +9,11 @@ namespace PageStats.Readers
 {
     public interface IResourceReaderFacade
     {
-        List<HtmlNode> getAllResources(HtmlDocument document);
-        double getTotalSize();
+        List<HtmlNode> GetAllResources(HtmlDocument document);
+        double GetTotalSize();
 
-        List<HtmlNode> getCSSResources(HtmlDocument document);
-        List<HtmlNode> getScriptResources(HtmlDocument document);
-        List<HtmlNode> getImageResources(HtmlDocument document);
+        List<HtmlNode> GetCSSResources(HtmlDocument document);
+        List<HtmlNode> GetScriptResources(HtmlDocument document);
+        List<HtmlNode> GetImageResources(HtmlDocument document);
     }
 }

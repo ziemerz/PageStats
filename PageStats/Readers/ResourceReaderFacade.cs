@@ -10,46 +10,45 @@ namespace PageStats.Readers
     class ResourceReaderFacade : IResourceReaderFacade
     {
         IResourceReader ResourceReader;
-        HtmlDocument Document;
         public ResourceReaderFacade(IResourceReader resourceReader)
         {
             this.ResourceReader = resourceReader;
         }
-        public List<HtmlNode> getAllResources(HtmlDocument document)
+        public List<HtmlNode> GetAllResources(HtmlDocument document)
         {
             List<HtmlNode> resources = new List<HtmlNode>();
-            resources.AddRange(getCSSResources(document));
-            resources.AddRange(getImageResources(document));
-            resources.AddRange(getScriptResources(document));
+            resources.AddRange(GetCSSResources(document));
+            resources.AddRange(GetImageResources(document));
+            resources.AddRange(GetScriptResources(document));
             return resources;
         }
 
-        public List<HtmlNode> getCSSResources(HtmlDocument document)
+        public List<HtmlNode> GetCSSResources(HtmlDocument document)
         {
             return ResourceReader.ReadCSS(document);
         }
 
-        public List<HtmlNode> getImageResources(HtmlDocument document)
+        public List<HtmlNode> GetImageResources(HtmlDocument document)
         {
             return ResourceReader.ReadImages(document);
         }
 
-        public List<HtmlNode> getScriptResources(HtmlDocument document)
+        public List<HtmlNode> GetScriptResources(HtmlDocument document)
         {
             return ResourceReader.ReadScripts(document);
         }
 
-        public double getResourceSize(string url)
+        public double GetResourceSize(HtmlNode node)
         {
-            return ResourceReader.GetResourceSize(url);
+            return ResourceReader.GetResourceSize(node);
         }
 
-        public String getResourceString(string url)
+        public String GetResourceString(HtmlNode node)
         {
-            return ResourceReader.ReadResource(url);
+            return ResourceReader.ReadResource(node);
         }
 
-        public double getTotalSize()
+        public double GetTotalSize()
         {
             throw new NotImplementedException();
         }
