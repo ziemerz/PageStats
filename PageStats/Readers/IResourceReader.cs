@@ -17,7 +17,7 @@ namespace PageStats.Readers
         List<HtmlNode> ReadCSS(HtmlDocument document);
         List<HtmlNode> ReadScripts(HtmlDocument document);
         List<HtmlNode> ReadImages(HtmlDocument document);
-        WebResponse GetResourceResponse(HtmlNode node);
+        WebResponse GetResourceResponse(HtmlNode node, String baseUrl);
 
 
     }

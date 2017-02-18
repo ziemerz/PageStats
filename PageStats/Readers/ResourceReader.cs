@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace PageStats.Readers
 {
@@ -28,25 +29,11 @@ namespace PageStats.Readers
 
         public String ReadResource(String url)
         {
-            
-            ChromeOptions options = new ChromeOptions();
-            options.AddArgument("--start-maximized");
-
-            IWebDriver driver = new ChromeDriver(@"C:\Users\Public\SeleniumDrivers", options);
-            driver.Navigate().GoToUrl(url);
-            //driver.Navigate().Refresh();
-            //driver.Manage().Timeouts().SetPageLoadTimeout(TimeSpan.FromSeconds(30));
-            /*var element = driver.FindElement(By.TagName("html"));
-            return element.Text;*/
-            return "";
-
-            /*
             String getUrl = URITrimmer.TrimUrl(url);
             WebClient client = new WebClient();
             Stream stream = client.OpenRead(getUrl);
             StreamReader reader = new StreamReader(stream);
             return reader.ReadToEnd();
-            */
         }
 
         public double GetResourceSize(HtmlNode node)
@@ -79,12 +66,61 @@ namespace PageStats.Readers
             return document.DocumentNode.Descendants("img").ToList();
         }
 
+        public List<String> ReadAlternativeImgUrls(HtmlDocument document)
+        {
+            List<String> images = new List<String>();
+            foreach (HtmlNode node in document.DocumentNode.SelectNodes("//body"))
+            {
+                string style = node.Attributes["style"].Value;
+                string Img = Regex.Match(style, @"(?<=\().+?(?=\))").Value;
+                images.Add(Img);
+            }
+            return images;
+        }
+
         /**
          * Checks what kind of node has been parsed, makes a request to the resource and returns the response
          **/
-        public WebResponse GetResourceResponse(HtmlNode node)
+        public WebResponse GetResourceResponse(HtmlNode node, String baseUrl)
         {
-            WebRequest request = WebRequest.Create(UrlFormatter(node));
+            Console.WriteLine(UrlFormatter(node));
+            String url = UrlFormatter(node);
+            WebRequest request;
+            try
+            {
+                request = WebRequest.Create(url);
+            } catch (Exception)
+            {
+                request = WebRequest.Create(baseUrl + url);
+            }
+            request.Method = "HEAD";
+
+            WebResponse response = null;
+            // TODO: Handle 403 forbidden exception here. "System.Net.WebException"
+            try
+            {
+                response = request.GetResponse();
+            }
+            catch (System.Net.WebException ex)
+            {
+                Console.Write(ex.Message);
+            }
+            return response;
+        }
+
+        //Alternative
+        public WebResponse GetResourceResponse(String url)
+        {
+            String Url = URITrimmer.TrimUrl(url);
+            WebRequest request;
+            try
+            {
+                request = WebRequest.Create(url);
+            }
+            catch (Exception)
+            {
+                request = WebRequest.Create(url);
+            }
             request.Method = "HEAD";
 
             WebResponse response = null;

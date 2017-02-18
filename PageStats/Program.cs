@@ -23,18 +23,19 @@ namespace PageStats
             IResourceReader resourceReader = new ResourceReader();
             IResourceReaderFacade resourceReaderFacade = new ResourceReaderFacade(resourceReader);
             PageConnector PageConnector = new PageConnector(resourceReaderFacade);
+            String baseUrl = "http://oasen2720.dk/";
+            Site site = PageConnector.GetSite(baseUrl);
+            //String HTMLPage = resourceReaderFacade.ReadHTML("https://ng-pokedex.firebaseapp.com/pokemon");
+            //double htmlsize = resourceReaderFacade.GetResourceSize(HTMLPage);
 
-            Site site = PageConnector.GetSite("http://oasen2720.dk/");
-            String HTMLPage = resourceReaderFacade.ReadHTML("https://ng-pokedex.firebaseapp.com/pokemon");
-            double htmlsize = resourceReaderFacade.GetResourceSize(HTMLPage);
-
-            Console.WriteLine("Size of HTML = " + SizeFormatter.FormatToKB(htmlsize) + "KB");
-
+            //Console.WriteLine("Size of HTML = " + SizeFormatter.FormatToKB(htmlsize) + "KB");
+            double totalSize = 0;
             foreach (HtmlNode node in site.Resources)
             {
-                using (WebResponse resp = resourceReader.GetResourceResponse(node))
+                using (WebResponse resp = resourceReader.GetResourceResponse(node, baseUrl))
                 {
                     double size = (double)resp.ContentLength;
+                    totalSize += size;
                     if (size == -1)
                     {
                         size = resourceReader.GetResourceSize(node);
@@ -56,6 +57,33 @@ namespace PageStats
                 }
 
             }
+            //Alternative URL's
+            using (WebResponse resp = resourceReader.GetResourceResponse(node, baseUrl))
+            {
+                double size = (double)resp.ContentLength;
+                totalSize += size;
+                if (size == -1)
+                {
+                    size = resourceReader.GetResourceSize(node);
+                }
+                string sizeWithEnding = "";
+                if (size > 1024)
+                {
+                    sizeWithEnding = SizeFormatter.FormatToKB(size) + " Kb";
+                }
+                else if (size > 1024 * 1024)
+                {
+                    sizeWithEnding = SizeFormatter.FormatToMB(size) + "Mb";
+                }
+                else
+                {
+                    sizeWithEnding = size + " bytes";
+                }
+                Console.WriteLine("Size: " + sizeWithEnding);
+            }
+
+        }
+        Console.WriteLine("Total size: " + SizeFormatter.FormatToMB(totalSize));
         }
     }
 }
