@@ -21,6 +21,8 @@ namespace PageStats
         [STAThread]
         static void Main()
         {
+            String BaseUrl = "http://oasen2720.dk/";
+
             List<TypeCollector> Collectors = new List<TypeCollector>();
             Collectors.Add(new HTMLCollector());
             Collectors.Add(new CSSCollector());
@@ -28,7 +30,8 @@ namespace PageStats
             Collectors.Add(new ImageCollector());
 
             IResourceCollector ResourceCollector = new ResourceCollector(Collectors);
-            IActions action = new Actions(ResourceCollector);
+            IActions Action = new Actions(ResourceCollector);
+            Action.Analyze(BaseUrl);
         }
     }
 }
