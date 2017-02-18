@@ -57,33 +57,6 @@ namespace PageStats
                 }
 
             }
-            //Alternative URL's
-            using (WebResponse resp = resourceReader.GetResourceResponse(node, baseUrl))
-            {
-                double size = (double)resp.ContentLength;
-                totalSize += size;
-                if (size == -1)
-                {
-                    size = resourceReader.GetResourceSize(node);
-                }
-                string sizeWithEnding = "";
-                if (size > 1024)
-                {
-                    sizeWithEnding = SizeFormatter.FormatToKB(size) + " Kb";
-                }
-                else if (size > 1024 * 1024)
-                {
-                    sizeWithEnding = SizeFormatter.FormatToMB(size) + "Mb";
-                }
-                else
-                {
-                    sizeWithEnding = size + " bytes";
-                }
-                Console.WriteLine("Size: " + sizeWithEnding);
-            }
-
-        }
-        Console.WriteLine("Total size: " + SizeFormatter.FormatToMB(totalSize));
         }
     }
 }
