@@ -25,6 +25,10 @@ namespace PageStats
             PageConnector PageConnector = new PageConnector(resourceReaderFacade);
 
             Site site = PageConnector.GetSite("http://oasen2720.dk/");
+            String HTMLPage = resourceReaderFacade.ReadHTML("https://ng-pokedex.firebaseapp.com/pokemon");
+            double htmlsize = resourceReaderFacade.GetResourceSize(HTMLPage);
+
+            Console.WriteLine("Size of HTML = " + SizeFormatter.FormatToKB(htmlsize) + "KB");
 
             foreach (HtmlNode node in site.Resources)
             {

@@ -10,6 +10,9 @@ namespace PageStats.Readers
     public interface IResourceReaderFacade
     {
         List<HtmlNode> GetAllResources(HtmlDocument document);
+        String ReadHTML(String url);
+        double GetResourceSize(String html);
+        double GetResourceSize(HtmlNode node);
         double GetTotalSize();
 
         List<HtmlNode> GetCSSResources(HtmlDocument document);

@@ -11,7 +11,9 @@ namespace PageStats.Readers
     interface IResourceReader
     {
         String ReadResource(HtmlNode node);
+        String ReadResource(String url);
         double GetResourceSize(HtmlNode node);
+        double GetResourceSize(String html);
         List<HtmlNode> ReadCSS(HtmlDocument document);
         List<HtmlNode> ReadScripts(HtmlDocument document);
         List<HtmlNode> ReadImages(HtmlDocument document);

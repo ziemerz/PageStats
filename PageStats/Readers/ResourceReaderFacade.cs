@@ -52,5 +52,15 @@ namespace PageStats.Readers
         {
             throw new NotImplementedException();
         }
+
+        public string ReadHTML(string url)
+        {
+            return ResourceReader.ReadResource(url);
+        }
+
+        public double GetResourceSize(string html)
+        {
+            return ResourceReader.GetResourceSize(html);
+        }
     }
 }
