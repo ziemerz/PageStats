@@ -11,7 +11,11 @@ namespace PageStats.Facades
     interface IActions
     {
         List<Resource> Analyze(String baseUrl);
-        File ExportCSV(List<Resource> resources);
-        File ImportCSV(File file);
+
+        //Change return type to something file-ish
+        String ExportCSV(List<Resource> resources);
+        
+        //Change the return and param type to something else. Should be File - File
+        String ImportCSV(String file);
     }
 }
