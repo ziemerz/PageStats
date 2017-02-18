@@ -17,7 +17,12 @@ namespace PageStats.Facades
         }
         public List<Resource> GatherResources(string baseUrl)
         {
-            throw new NotImplementedException();
+            List<Resource> Resources = new List<Resource>();
+            foreach (TypeCollector collector in Collectors)
+            {
+                Resources.Concat(collector.Collect(baseUrl));
+            }
+            return Resources;
         }
     }
 }
