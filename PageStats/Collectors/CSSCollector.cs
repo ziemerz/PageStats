@@ -8,5 +8,9 @@ namespace PageStats.Collectors
 {
     class CSSCollector : TypeCollector
     {
+        public List<Resource> Collect(string baseUrl)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
