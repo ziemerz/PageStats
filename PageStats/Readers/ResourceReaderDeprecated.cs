@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace PageStats.Readers
 {
-    public class ResourceReader : IResourceReader
+    public class ResourceReaderDeprecated
     {
         /**
          * Reads all resources with no header with Content-Length. This includes pure HTML documents
