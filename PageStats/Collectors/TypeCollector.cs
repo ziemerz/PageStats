@@ -1,4 +1,5 @@
-﻿using PageStats.Entities;
+﻿using HtmlAgilityPack;
+using PageStats.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace PageStats.Collectors
 {
-    interface TypeCollector
+    abstract class TypeCollector
     {
-        List<Resource> Collect(String baseUrl);
+        abstract public List<Resource> Collect(String baseUrl);
     }
 }

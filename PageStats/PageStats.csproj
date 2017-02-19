@@ -51,9 +51,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connectors\IConnector.cs" />
-    <Compile Include="Connectors\PageConnector.cs" />
-    <Compile Include="Entities\Site.cs" />
+    <Compile Include="Collectors\ImageCollector.cs" />
+    <Compile Include="Collectors\ScriptCollector.cs" />
+    <Compile Include="Collectors\CSSCollector.cs" />
+    <Compile Include="Collectors\HTMLCollector.cs" />
+    <Compile Include="Collectors\TypeCollector.cs" />
+    <Compile Include="Entities\CSSResource.cs" />
+    <Compile Include="Entities\HTMLResource.cs" />
+    <Compile Include="Entities\ImageResource.cs" />
+    <Compile Include="Entities\Resource.cs" />
+    <Compile Include="Entities\ScriptResource.cs" />
+    <Compile Include="Facades\Actions.cs" />
+    <Compile Include="Facades\IActions.cs" />
+    <Compile Include="Facades\IResourceCollector.cs" />
+    <Compile Include="Facades\ResourceCollector.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,13 +73,10 @@
     </Compile>
     <Compile Include="Formatters\SizeFormatter.cs" />
     <Compile Include="Formatters\URITrimmer.cs" />
-    <Compile Include="Mergers\SiteMapResources.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Readers\IResourceReader.cs" />
-    <Compile Include="Readers\IResourceReaderFacade.cs" />
-    <Compile Include="Readers\ResourceReader.cs" />
-    <Compile Include="Readers\ResourceReaderFacade.cs" />
+    <Compile Include="Readers\ResourceReaderDeprecated.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -92,5 +100,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

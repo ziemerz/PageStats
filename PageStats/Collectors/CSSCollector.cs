@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using PageStats.Entities;
+using PageStats.Readers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +11,11 @@ namespace PageStats.Collectors
 {
     class CSSCollector : TypeCollector
     {
-        public List<Resource> Collect(string baseUrl)
+        public override List<Resource> Collect(string baseUrl)
         {
-            throw new NotImplementedException();
+            List<String> CSSUrls = ResourceIsolator.IsolateCSSUrls(baseUrl);
+            List<Resource> Resources = ResourceReader.ReadCSS(CSSUrls);
+            return Resources;
         }
     }
 }
