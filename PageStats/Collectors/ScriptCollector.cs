@@ -9,7 +9,7 @@ namespace PageStats.Collectors
 {
     class ScriptCollector : TypeCollector
     {
-        public List<Resource> Collect(string baseUrl)
+        override public List<Resource> Collect(string baseUrl)
         {
             throw new NotImplementedException();
         }

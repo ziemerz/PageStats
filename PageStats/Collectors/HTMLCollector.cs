@@ -9,7 +9,7 @@ namespace PageStats.Collectors
 {
     class HTMLCollector : TypeCollector
     {
-        public List<Resource> Collect(string baseUrl)
+        public override List<Resource> Collect(string baseUrl)
         {
             throw new NotImplementedException();
         }

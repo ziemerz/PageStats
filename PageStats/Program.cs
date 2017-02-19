@@ -23,12 +23,13 @@ namespace PageStats
         {
             String BaseUrl = "http://oasen2720.dk/";
 
-            List<TypeCollector> Collectors = new List<TypeCollector>();
-            Collectors.Add(new HTMLCollector());
-            Collectors.Add(new CSSCollector());
-            Collectors.Add(new ScriptCollector());
-            Collectors.Add(new ImageCollector());
-
+            List<TypeCollector> Collectors = new List<TypeCollector>
+            {
+                new HTMLCollector(),
+                new CSSCollector(),
+                new ScriptCollector(),
+                new ImageCollector()
+            };
             IResourceCollector ResourceCollector = new ResourceCollector(Collectors);
             IActions Action = new Actions(ResourceCollector);
             Action.Analyze(BaseUrl);
